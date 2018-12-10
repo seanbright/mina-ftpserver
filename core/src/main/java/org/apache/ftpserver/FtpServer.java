@@ -33,7 +33,7 @@ public interface FtpServer {
 
     /**
      * Start the server. Open a new listener thread.
-     * @throws FtpException 
+     * @throws FtpException if an FTP exception occurs
      */
     void start() throws FtpException;
     

@@ -53,12 +53,12 @@ public class ConnectPickPortTest extends ClientTestTemplate {
     }
 
     public void testPortWithZeroPort() throws Exception {
-        assertEquals(0, ((NioListener) server.getServerContext().getListener(
-                "default")).getPort());
+        assertEquals(0, server.getServerContext().getListener(
+                "default").getPort());
 
         server.start();
 
-        assertTrue(((NioListener) server.getServerContext().getListener(
-                "default")).getPort() > 0);
+        assertTrue(server.getServerContext().getListener(
+                "default").getPort() > 0);
     }
 }

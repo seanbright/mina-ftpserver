@@ -56,9 +56,7 @@ public class CustomMaxLoginTest extends ClientTestTemplate {
             client.login(UNKNOWN_USERNAME, UNKNOWN_PASSWORD);
 
             fail("Must be disconnected");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
     }

@@ -19,9 +19,6 @@
 
 package org.apache.ftpserver.clienttests;
 
-import java.io.IOException;
-import java.util.Arrays;
-
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.ftpserver.DataConnectionConfigurationFactory;
 

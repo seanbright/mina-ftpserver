@@ -214,36 +214,40 @@ public class NativeFileSystemView implements FileSystemView {
             String tok = st.nextToken();
 
             // . => current directory
-            if (tok.equals(".")) {
-                // ignore and move on
-            } else if (tok.equals("..")) {
-                // .. => parent directory (if not root)
-                if (result.startsWith(normalizedRootDir)) {
-                    int slashIndex = result.lastIndexOf('/');
-                    if (slashIndex != -1) {
-                        result = result.substring(0, slashIndex);
+            switch (tok) {
+                case ".":
+                    // ignore and move on
+                    break;
+                case "..":
+                    // .. => parent directory (if not root)
+                    if (result.startsWith(normalizedRootDir)) {
+                        int slashIndex = result.lastIndexOf('/');
+                        if (slashIndex != -1) {
+                            result = result.substring(0, slashIndex);
+                        }
                     }
-                }
-            } else if (tok.equals("~")) {
-                // ~ => home directory (in this case the root directory)
-                result = trimTrailingSlash(normalizedRootDir);
-                continue;
-            } else {
-                // token is normal directory name
-                
-                if(caseInsensitive) {
-                    // we're case insensitive, find a directory with the name, ignoring casing
-                    File[] matches = new File(result)
-                            .listFiles(new NameEqualsFileFilter(tok, true));
-    
-                    if (matches != null && matches.length > 0) {
-                        // found a file matching tok, replace tok for get the right casing
-                        tok = matches[0].getName();
-                    }
-                }
+                    break;
+                case "~":
+                    // ~ => home directory (in this case the root directory)
+                    result = trimTrailingSlash(normalizedRootDir);
+                    continue;
+                default:
+                    // token is normal directory name
 
-                result = result + '/' + tok;
-    
+                    if (caseInsensitive) {
+                        // we're case insensitive, find a directory with the name, ignoring casing
+                        File[] matches = new File(result)
+                                .listFiles(new NameEqualsFileFilter(tok, true));
+
+                        if (matches != null && matches.length > 0) {
+                            // found a file matching tok, replace tok for get the right casing
+                            tok = matches[0].getName();
+                        }
+                    }
+
+                    result = result + '/' + tok;
+
+                    break;
             }
         }
 

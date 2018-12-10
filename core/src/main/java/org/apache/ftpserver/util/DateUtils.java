@@ -45,22 +45,17 @@ public class DateUtils {
      * Creates the DateFormat object used to parse/format
      * dates in FTP format.
      */
-    private static final ThreadLocal<DateFormat> FTP_DATE_FORMAT = new ThreadLocal<DateFormat>() {
-
-        @Override
-        protected DateFormat initialValue() {
-            DateFormat df=new SimpleDateFormat("yyyyMMddHHmmss");
-            df.setLenient(false);
-            df.setTimeZone(TimeZone.getTimeZone("GMT"));
-            return df;
-        }
-        
-    };
+    private static final ThreadLocal<DateFormat> FTP_DATE_FORMAT = ThreadLocal.withInitial(() -> {
+        DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+        df.setLenient(false);
+        df.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return df;
+    });
     
     /**
      * Get unix style date string.
      */
-    public final static String getUnixDate(long millis) {
+    public static String getUnixDate(long millis) {
         if (millis < 0) {
             return "------------";
         }
@@ -112,7 +107,7 @@ public class DateUtils {
     /**
      * Get ISO 8601 timestamp.
      */
-    public final static String getISO8601Date(long millis) {
+    public static String getISO8601Date(long millis) {
         StringBuilder sb = new StringBuilder(19);
         Calendar cal = new GregorianCalendar();
         cal.setTimeInMillis(millis);
@@ -166,7 +161,7 @@ public class DateUtils {
     /**
      * Get FTP date.
      */
-    public final static String getFtpDate(long millis) {
+    public static String getFtpDate(long millis) {
         StringBuilder sb = new StringBuilder(20);
         
         // MLST should use UTC
@@ -228,7 +223,7 @@ public class DateUtils {
      *  Parses a date in the format used by the FTP commands 
      *  involving dates(MFMT, MDTM)
      */
-    public final static Date parseFTPDate(String dateStr) throws ParseException{
+    public static Date parseFTPDate(String dateStr) throws ParseException{
         return FTP_DATE_FORMAT.get().parse(dateStr);
         
     }

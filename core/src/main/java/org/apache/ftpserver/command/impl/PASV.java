@@ -112,7 +112,6 @@ public class PASV extends AbstractCommand {
             session.write(LocalizedFtpReply.translate(session, request, context,
                 FtpReply.REPLY_425_CANT_OPEN_DATA_CONNECTION,
                 "PASV", null));
-            return;
         }
 
     }

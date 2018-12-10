@@ -38,6 +38,6 @@ public interface SessionFilter {
      * @return <code>true</code>, if the given session is accepted by this
      *         filter; <code>false</code>, otherwise.
      */
-    public boolean accept(IoSession session);
+    boolean accept(IoSession session);
 
 }

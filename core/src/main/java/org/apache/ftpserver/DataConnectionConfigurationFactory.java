@@ -49,7 +49,7 @@ public class DataConnectionConfigurationFactory {
     
     private String passiveAddress;
     private String passiveExternalAddress;
-    private PassivePorts passivePorts = new PassivePorts(Collections.<Integer>emptySet(), true);
+    private PassivePorts passivePorts = new PassivePorts(Collections.emptySet(), true);
     private boolean passiveIpCheck = false;
     private boolean implicitSsl;
 
@@ -245,7 +245,7 @@ public class DataConnectionConfigurationFactory {
                 try {
                     log.info("We're waiting for a passive port, might be stuck");
                     wait();
-                } catch (InterruptedException ex) {
+                } catch (InterruptedException ignored) {
                 }
             }
         }

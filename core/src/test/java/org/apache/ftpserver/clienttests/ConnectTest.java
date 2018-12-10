@@ -39,13 +39,13 @@ public class ConnectTest extends ClientTestTemplate {
     }
 
     public void testPort() throws Exception {
-        assertEquals(0, ((NioListener) server
-                .getListener("default")).getPort());
+        assertEquals(0, server
+                .getListener("default").getPort());
 
         server.start();
 
-        assertTrue(((NioListener) server
-                .getListener("default")).getPort() > 0);
+        assertTrue(server
+                .getListener("default").getPort() > 0);
     }
 
 }

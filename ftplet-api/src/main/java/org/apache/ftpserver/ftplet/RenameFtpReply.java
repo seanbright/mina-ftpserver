@@ -35,7 +35,7 @@ public interface RenameFtpReply extends FtpReply {
 	 * @return the file before the rename. May return <code>null</code>, if
 	 *         the file information is not available.
 	 */
-	public FtpFile getFrom();
+    FtpFile getFrom();
 
 	/**
 	 * Returns the file after the rename.
@@ -43,6 +43,6 @@ public interface RenameFtpReply extends FtpReply {
 	 * @return the file after the rename. May return <code>null</code>, if
 	 *         the file information is not available.
 	 */
-	public FtpFile getTo();
+    FtpFile getTo();
 
 }

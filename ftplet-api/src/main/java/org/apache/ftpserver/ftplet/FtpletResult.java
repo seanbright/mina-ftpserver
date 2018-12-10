@@ -50,5 +50,5 @@ public enum FtpletResult {
      * It indicates that the server will skip and disconnect the client. No
      * other request from the same client will be served.
      */
-    DISCONNECT;
+    DISCONNECT
 }

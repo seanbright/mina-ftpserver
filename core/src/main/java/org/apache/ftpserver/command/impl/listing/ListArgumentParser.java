@@ -57,7 +57,6 @@ public class ListArgumentParser {
                     fileSb.append(token);
                 } else if (token.equals(" ")) {
                     // delimiter and file not started - ignore
-                    continue;
                 } else if (token.charAt(0) == '-') {
                     // token and file name not started - append to options
                     // buffer

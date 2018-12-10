@@ -58,8 +58,8 @@ public class DefaultFtpReply implements FtpReply {
         this.code = code;
 
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < message.length; i++) {
-            sb.append(message[i]);
+        for (String s : message) {
+            sb.append(s);
             sb.append('\n');
         }
         this.message = sb.toString();

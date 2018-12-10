@@ -36,5 +36,5 @@ public interface FileActionFtpReply extends FtpReply {
 	 * @return the file on which the action was taken. May return
 	 *         <code>null</code>, if the file information is not available.
 	 */
-	public FtpFile getFile();
+    FtpFile getFile();
 }

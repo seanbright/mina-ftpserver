@@ -57,7 +57,7 @@ public class IoUtils {
     /**
      * Get a <code>BufferedInputStream</code>.
      */
-    public final static BufferedInputStream getBufferedInputStream(
+    public static BufferedInputStream getBufferedInputStream(
             InputStream in) {
         BufferedInputStream bin = null;
         if (in instanceof java.io.BufferedInputStream) {
@@ -71,7 +71,7 @@ public class IoUtils {
     /**
      * Get a <code>BufferedOutputStream</code>.
      */
-    public final static BufferedOutputStream getBufferedOutputStream(
+    public static BufferedOutputStream getBufferedOutputStream(
             OutputStream out) {
         BufferedOutputStream bout = null;
         if (out instanceof java.io.BufferedOutputStream) {
@@ -85,7 +85,7 @@ public class IoUtils {
     /**
      * Get <code>BufferedReader</code>.
      */
-    public final static BufferedReader getBufferedReader(Reader reader) {
+    public static BufferedReader getBufferedReader(Reader reader) {
         BufferedReader buffered = null;
         if (reader instanceof java.io.BufferedReader) {
             buffered = (BufferedReader) reader;
@@ -98,7 +98,7 @@ public class IoUtils {
     /**
      * Get <code>BufferedWriter</code>.
      */
-    public final static BufferedWriter getBufferedWriter(Writer wr) {
+    public static BufferedWriter getBufferedWriter(Writer wr) {
         BufferedWriter bw = null;
         if (wr instanceof java.io.BufferedWriter) {
             bw = (BufferedWriter) wr;
@@ -111,12 +111,9 @@ public class IoUtils {
     /**
      * Get unique file object.
      */
-    public final static File getUniqueFile(File oldFile) {
+    public static File getUniqueFile(File oldFile) {
         File newFile = oldFile;
-        while (true) {
-            if (!newFile.exists()) {
-                break;
-            }
+        while (newFile.exists()) {
             newFile = new File(oldFile.getAbsolutePath() + '.'
                     + Math.abs(RANDOM_GEN.nextLong()));
         }
@@ -126,7 +123,7 @@ public class IoUtils {
     /**
      * No exception <code>InputStream</code> close method.
      */
-    public final static void close(InputStream is) {
+    public static void close(InputStream is) {
         if (is != null) {
             try {
                 is.close();
@@ -138,7 +135,7 @@ public class IoUtils {
     /**
      * No exception <code>OutputStream</code> close method.
      */
-    public final static void close(OutputStream os) {
+    public static void close(OutputStream os) {
         if (os != null) {
             try {
                 os.close();
@@ -150,7 +147,7 @@ public class IoUtils {
     /**
      * No exception <code>java.io.Reader</code> close method.
      */
-    public final static void close(Reader rd) {
+    public static void close(Reader rd) {
         if (rd != null) {
             try {
                 rd.close();
@@ -162,7 +159,7 @@ public class IoUtils {
     /**
      * No exception <code>java.io.Writer</code> close method.
      */
-    public final static void close(Writer wr) {
+    public static void close(Writer wr) {
         if (wr != null) {
             try {
                 wr.close();
@@ -174,7 +171,7 @@ public class IoUtils {
     /**
      * Get exception stack trace.
      */
-    public final static String getStackTrace(Throwable ex) {
+    public static String getStackTrace(Throwable ex) {
         String result = "";
         if (ex != null) {
             try {
@@ -197,9 +194,9 @@ public class IoUtils {
      * @param bufferSize
      *            Size of internal buffer to use.
      */
-    public final static void copy(Reader input, Writer output, int bufferSize)
+    public static void copy(Reader input, Writer output, int bufferSize)
             throws IOException {
-        char buffer[] = new char[bufferSize];
+        char[] buffer = new char[bufferSize];
         int n = 0;
         while ((n = input.read(buffer)) != -1) {
             output.write(buffer, 0, n);
@@ -213,9 +210,9 @@ public class IoUtils {
      * @param bufferSize
      *            Size of internal buffer to use.
      */
-    public final static void copy(InputStream input, OutputStream output,
-            int bufferSize) throws IOException {
-        byte buffer[] = new byte[bufferSize];
+    public static void copy(InputStream input, OutputStream output,
+                            int bufferSize) throws IOException {
+        byte[] buffer = new byte[bufferSize];
         int n = 0;
         while ((n = input.read(buffer)) != -1) {
             output.write(buffer, 0, n);
@@ -225,7 +222,7 @@ public class IoUtils {
     /**
      * Read fully from reader
      */
-    public final static String readFully(Reader reader) throws IOException {
+    public static String readFully(Reader reader) throws IOException {
         StringWriter writer = new StringWriter();
         copy(reader, writer, 1024);
         return writer.toString();
@@ -234,14 +231,14 @@ public class IoUtils {
     /**
      * Read fully from stream
      */
-    public final static String readFully(InputStream input) throws IOException {
+    public static String readFully(InputStream input) throws IOException {
         StringWriter writer = new StringWriter();
         InputStreamReader reader = new InputStreamReader(input);
         copy(reader, writer, 1024);
         return writer.toString();
     }
 
-    public final static void delete(File file) throws IOException {
+    public static void delete(File file) throws IOException {
         if (file.isDirectory()) {
             deleteDir(file);
         } else {
@@ -249,15 +246,14 @@ public class IoUtils {
         }
     }
 
-    private final static void deleteDir(File dir) throws IOException {
+    private static void deleteDir(File dir) throws IOException {
         File[] children = dir.listFiles();
 
         if (children == null) {
             return;
         }
 
-        for (int i = 0; i < children.length; i++) {
-            File file = children[i];
+        for (File file : children) {
             delete(file);
         }
 
@@ -267,7 +263,7 @@ public class IoUtils {
 
     }
 
-    private final static void deleteFile(File file) throws IOException {
+    private static void deleteFile(File file) throws IOException {
         if (!file.delete()) {
             // hack around bug where files will sometimes not be deleted on
             // Windows

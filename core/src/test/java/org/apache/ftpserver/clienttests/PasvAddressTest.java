@@ -67,6 +67,6 @@ public class PasvAddressTest extends ClientTestTemplate {
                 InetAddress.getByName(passiveAddress), 12347));
 
         assertTrue("The PASV address should contain \"" + ipEncoded
-                + "\" but was \"" + reply + "\"", reply.indexOf(ipEncoded) > -1);
+                + "\" but was \"" + reply + "\"", reply.contains(ipEncoded));
     }
 }

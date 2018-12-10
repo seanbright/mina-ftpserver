@@ -21,7 +21,6 @@ package org.apache.ftpserver.command.impl;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.ftpserver.command.AbstractCommand;
@@ -73,11 +72,9 @@ public class SITE_WHO extends AbstractCommand {
                 .getManagedSessions();
 
         sb.append('\n');
-        Iterator<IoSession> sessionIterator = sessions.values().iterator();
 
-        while (sessionIterator.hasNext()) {
-            FtpIoSession managedSession = new FtpIoSession(sessionIterator
-                    .next(), context);
+        for (IoSession ioSession : sessions.values()) {
+            FtpIoSession managedSession = new FtpIoSession(ioSession, context);
 
             if (!managedSession.isLoggedIn()) {
                 continue;
@@ -88,7 +85,7 @@ public class SITE_WHO extends AbstractCommand {
 
             if (managedSession.getRemoteAddress() instanceof InetSocketAddress) {
                 sb.append(StringUtils.pad(((InetSocketAddress) managedSession
-                        .getRemoteAddress()).getAddress().getHostAddress(),
+                                .getRemoteAddress()).getAddress().getHostAddress(),
                         ' ', true, 16));
             }
             sb.append(StringUtils.pad(DateUtils.getISO8601Date(managedSession

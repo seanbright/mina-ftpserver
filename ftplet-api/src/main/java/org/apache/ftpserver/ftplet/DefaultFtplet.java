@@ -50,27 +50,28 @@ public class DefaultFtplet implements Ftplet {
             throws FtpException, IOException {
         String command = request.getCommand().toUpperCase();
 
-        if ("DELE".equals(command)) {
-            return onDeleteStart(session, request);
-        } else if ("STOR".equals(command)) {
-            return onUploadStart(session, request);
-        } else if ("RETR".equals(command)) {
-            return onDownloadStart(session, request);
-        } else if ("RMD".equals(command)) {
-            return onRmdirStart(session, request);
-        } else if ("MKD".equals(command)) {
-            return onMkdirStart(session, request);
-        } else if ("APPE".equals(command)) {
-            return onAppendStart(session, request);
-        } else if ("STOU".equals(command)) {
-            return onUploadUniqueStart(session, request);
-        } else if ("RNTO".equals(command)) {
-            return onRenameStart(session, request);
-        } else if ("SITE".equals(command)) {
-            return onSite(session, request);
-        } else {
-            // TODO should we call a catch all?
-            return null;
+        switch (command) {
+            case "DELE":
+                return onDeleteStart(session, request);
+            case "STOR":
+                return onUploadStart(session, request);
+            case "RETR":
+                return onDownloadStart(session, request);
+            case "RMD":
+                return onRmdirStart(session, request);
+            case "MKD":
+                return onMkdirStart(session, request);
+            case "APPE":
+                return onAppendStart(session, request);
+            case "STOU":
+                return onUploadUniqueStart(session, request);
+            case "RNTO":
+                return onRenameStart(session, request);
+            case "SITE":
+                return onSite(session, request);
+            default:
+                // TODO should we call a catch all?
+                return null;
         }
     }
 
@@ -81,27 +82,28 @@ public class DefaultFtplet implements Ftplet {
         
         String command = request.getCommand().toUpperCase();
 
-        if ("PASS".equals(command)) {
-            return onLogin(session, request);
-        } else if ("DELE".equals(command)) {
-            return onDeleteEnd(session, request);
-        } else if ("STOR".equals(command)) {
-            return onUploadEnd(session, request);
-        } else if ("RETR".equals(command)) {
-            return onDownloadEnd(session, request);
-        } else if ("RMD".equals(command)) {
-            return onRmdirEnd(session, request);
-        } else if ("MKD".equals(command)) {
-            return onMkdirEnd(session, request);
-        } else if ("APPE".equals(command)) {
-            return onAppendEnd(session, request);
-        } else if ("STOU".equals(command)) {
-            return onUploadUniqueEnd(session, request);
-        } else if ("RNTO".equals(command)) {
-            return onRenameEnd(session, request);
-        } else {
-            // TODO should we call a catch all?
-            return null;
+        switch (command) {
+            case "PASS":
+                return onLogin(session, request);
+            case "DELE":
+                return onDeleteEnd(session, request);
+            case "STOR":
+                return onUploadEnd(session, request);
+            case "RETR":
+                return onDownloadEnd(session, request);
+            case "RMD":
+                return onRmdirEnd(session, request);
+            case "MKD":
+                return onMkdirEnd(session, request);
+            case "APPE":
+                return onAppendEnd(session, request);
+            case "STOU":
+                return onUploadUniqueEnd(session, request);
+            case "RNTO":
+                return onRenameEnd(session, request);
+            default:
+                // TODO should we call a catch all?
+                return null;
         }
     }
 

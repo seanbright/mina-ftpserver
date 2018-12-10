@@ -79,9 +79,8 @@ public class PasvTest extends ClientTestTemplate {
     public void testPasvIp() throws Exception {
         String[] ips = TestUtil.getHostAddresses();
 
-        for (int i = 0; i < ips.length; i++) {
+        for (String ip : ips) {
 
-            String ip = ips[i];
             String ftpIp = ip.replace('.', ',');
 
             if (!ip.startsWith("0.")) {
@@ -95,7 +94,7 @@ public class PasvTest extends ClientTestTemplate {
                 client.login(ADMIN_USERNAME, ADMIN_PASSWORD);
                 client.pasv();
 
-                assertTrue("Can't find " + ftpIp + " in " + client.getReplyString(), client.getReplyString().indexOf(ftpIp) > -1);
+                assertTrue("Can't find " + ftpIp + " in " + client.getReplyString(), client.getReplyString().contains(ftpIp));
 
                 client.quit();
                 client.disconnect();

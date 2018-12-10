@@ -64,21 +64,21 @@ public class SpringConfigTest extends TestCase {
         Listener listener = listeners.get("listener0");
         assertNotNull(listener);
         assertTrue(listener instanceof NioListener);
-        assertEquals(2222, ((NioListener) listener).getPort());
-        assertEquals(InetAddress.getByName("1.2.3.4"), InetAddress.getByName(((NioListener) listener)
+        assertEquals(2222, listener.getPort());
+        assertEquals(InetAddress.getByName("1.2.3.4"), InetAddress.getByName(listener
                 .getServerAddress()));
-        assertEquals(100, ((NioListener) listener)
+        assertEquals(100, listener
                 .getDataConnectionConfiguration().getIdleTime());
-        assertTrue(((NioListener) listener)
+        assertTrue(listener
                 .getDataConnectionConfiguration().isActiveEnabled());
-        assertTrue(((NioListener) listener)
+        assertTrue(listener
                 .getDataConnectionConfiguration().isImplicitSsl());
         
-        assertEquals(InetAddress.getByName("1.2.3.4"), InetAddress.getByName(((NioListener) listener)
+        assertEquals(InetAddress.getByName("1.2.3.4"), InetAddress.getByName(listener
         		.getDataConnectionConfiguration().getActiveLocalAddress()) );
-        assertEquals("123-125", ((NioListener) listener)
+        assertEquals("123-125", listener
                 .getDataConnectionConfiguration().getPassivePorts());
-        assertEquals(false, ((NioListener) listener)
+        assertEquals(false, listener
                 .getDataConnectionConfiguration().isPassiveIpCheck());
         
         RemoteIpFilter filter = (RemoteIpFilter) listener.getSessionFilter();

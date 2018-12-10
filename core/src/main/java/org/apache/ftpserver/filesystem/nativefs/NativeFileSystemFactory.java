@@ -98,9 +98,7 @@ public class NativeFileSystemFactory implements FileSystemFactory {
                 }
             }
 
-            FileSystemView fsView = new NativeFileSystemView(user,
-                    caseInsensitive);
-            return fsView;
+            return new NativeFileSystemView(user, caseInsensitive);
         }
     }
 

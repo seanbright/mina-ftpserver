@@ -34,7 +34,7 @@ public class EncryptUtils {
     /**
      * Encrypt byte array.
      */
-    public final static byte[] encrypt(byte[] source, String algorithm)
+    public static byte[] encrypt(byte[] source, String algorithm)
             throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance(algorithm);
         md.reset();
@@ -45,7 +45,7 @@ public class EncryptUtils {
     /**
      * Encrypt string
      */
-    public final static String encrypt(String source, String algorithm)
+    public static String encrypt(String source, String algorithm)
             throws NoSuchAlgorithmException {
         byte[] resByteArray = encrypt(source.getBytes(), algorithm);
         return StringUtils.toHexString(resByteArray);
@@ -54,7 +54,7 @@ public class EncryptUtils {
     /**
      * Encrypt string using MD5 algorithm
      */
-    public final static String encryptMD5(String source) {
+    public static String encryptMD5(String source) {
         if (source == null) {
             source = "";
         }
@@ -72,7 +72,7 @@ public class EncryptUtils {
     /**
      * Encrypt string using SHA algorithm
      */
-    public final static String encryptSHA(String source) {
+    public static String encryptSHA(String source) {
         if (source == null) {
             source = "";
         }

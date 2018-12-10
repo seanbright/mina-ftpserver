@@ -28,7 +28,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.ftpserver.FtpServerConfigurationException;
@@ -337,16 +336,15 @@ public class PropertiesUserManager extends AbstractUserManager {
         // remove entries from properties
         String thisPrefix = PREFIX + usrName + '.';
         Enumeration<?> propNames = userDataProp.propertyNames();
-        ArrayList<String> remKeys = new ArrayList<String>();
+        ArrayList<String> remKeys = new ArrayList<>();
         while (propNames.hasMoreElements()) {
             String thisKey = propNames.nextElement().toString();
             if (thisKey.startsWith(thisPrefix)) {
                 remKeys.add(thisKey);
             }
         }
-        Iterator<String> remKeysIt = remKeys.iterator();
-        while (remKeysIt.hasNext()) {
-            userDataProp.remove(remKeysIt.next());
+        for (String remKey : remKeys) {
+            userDataProp.remove(remKey);
         }
 
         saveUserData();
@@ -390,7 +388,7 @@ public class PropertiesUserManager extends AbstractUserManager {
     public String[] getAllUserNames() {
         // get all user names
         String suffix = '.' + ATTR_HOME;
-        ArrayList<String> ulst = new ArrayList<String>();
+        ArrayList<String> ulst = new ArrayList<>();
         Enumeration<?> allKeys = userDataProp.propertyNames();
         int prefixlen = PREFIX.length();
         int suffixlen = suffix.length();
@@ -423,7 +421,7 @@ public class PropertiesUserManager extends AbstractUserManager {
         user.setHomeDirectory(userDataProp
                 .getProperty(baseKey + ATTR_HOME, "/"));
 
-        List<Authority> authorities = new ArrayList<Authority>();
+        List<Authority> authorities = new ArrayList<>();
 
         if (userDataProp.getBoolean(baseKey + ATTR_WRITE_PERM, false)) {
             authorities.add(new WritePermission());

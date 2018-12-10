@@ -45,7 +45,7 @@ public class LISTFileFormater implements FileFormater {
         sb.append(DELIM);
         sb.append(DELIM);
         sb.append(DELIM);
-        sb.append(String.valueOf(file.getLinkCount()));
+        sb.append(file.getLinkCount());
         sb.append(DELIM);
         sb.append(file.getOwnerName());
         sb.append(DELIM);
@@ -88,7 +88,7 @@ public class LISTFileFormater implements FileFormater {
      * Get permission string.
      */
     private char[] getPermission(FtpFile file) {
-        char permission[] = new char[10];
+        char[] permission = new char[10];
         Arrays.fill(permission, '-');
 
         permission[0] = file.isDirectory() ? 'd' : '-';

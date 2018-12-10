@@ -75,7 +75,7 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
     protected FtpServerFactory createServer() throws Exception {
         FtpServerFactory server = super.createServer();
 
-        Map<String, Ftplet> ftplets = new LinkedHashMap<String, Ftplet>();
+        Map<String, Ftplet> ftplets = new LinkedHashMap<>();
         ftplets.put("f1", new MockFtplet());
         server.setFtplets(ftplets);
         
@@ -96,9 +96,7 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
             client.login(ADMIN_USERNAME, ADMIN_PASSWORD);
             client.noop();
             fail("Must throw FTPConnectionClosedException");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
     }
@@ -119,9 +117,7 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
         try {
             client.deleteFile(TEST_FILE1.getName());
             fail("Must throw FTPConnectionClosedException");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
 
@@ -145,9 +141,7 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
         try {
             client.noop();
             fail("Must throw FTPConnectionClosedException");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
 
@@ -168,9 +162,7 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
         try {
             client.makeDirectory(TEST_DIR1.getName());
             fail("Must throw FTPConnectionClosedException");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
 
@@ -192,9 +184,7 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
         try {
             client.noop();
             fail("Must throw FTPConnectionClosedException");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
 
@@ -217,9 +207,7 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
         try {
             client.removeDirectory(TEST_DIR1.getName());
             fail("Must throw FTPConnectionClosedException");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
 
@@ -243,9 +231,7 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
         try {
             client.noop();
             fail("Must throw FTPConnectionClosedException");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
 
@@ -267,9 +253,7 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
             client.site("HELP");
             client.completePendingCommand();
             fail("Must throw FTPConnectionClosedException");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
     }
@@ -290,9 +274,7 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
         try {
             client.rename(TEST_FILE1.getName(), TEST_FILE2.getName());
             fail("Must throw FTPConnectionClosedException");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
 
@@ -317,9 +299,7 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
         try {
             client.noop();
             fail("Must throw FTPConnectionClosedException");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
 
@@ -344,9 +324,7 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
         try {
             client.retrieveFileStream(TEST_FILE1.getName());
             fail("Must throw FTPConnectionClosedException");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
     }
@@ -369,9 +347,7 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
         try {
             client.noop();
             fail("Must throw FTPConnectionClosedException");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
 
@@ -395,9 +371,7 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
             client.appendFile(TEST_FILE1.getName(), new ByteArrayInputStream(
                     TESTDATA));
             fail("Must throw FTPConnectionClosedException");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
 
@@ -422,9 +396,7 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
         try {
             client.noop();
             fail("Must throw FTPConnectionClosedException");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
 
@@ -446,9 +418,7 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
             client.storeFile(TEST_FILE1.getName(), new ByteArrayInputStream(
                     TESTDATA));
             fail("Must throw FTPConnectionClosedException");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
 
@@ -471,9 +441,7 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
         try {
             client.noop();
             fail("Must throw FTPConnectionClosedException");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
 
@@ -495,9 +463,7 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
             client.storeUniqueFile(TEST_FILE1.getName(),
                     new ByteArrayInputStream(TESTDATA));
             fail("Must throw FTPConnectionClosedException");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
 
@@ -520,9 +486,7 @@ public class FtpLetReturnDisconnectTest extends ClientTestTemplate {
         try {
             client.noop();
             fail("Must throw FTPConnectionClosedException");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
 

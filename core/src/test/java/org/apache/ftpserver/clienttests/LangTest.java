@@ -41,7 +41,7 @@ public class LangTest extends ClientTestTemplate {
         FtpServerFactory server = super.createServer();
 
         MessageResourceFactory factory = new MessageResourceFactory();
-        factory.setLanguages(Arrays.asList(new String[] { "en", "zh-tw" }));
+        factory.setLanguages(Arrays.asList("en", "zh-tw"));
         server.setMessageResource(factory.createMessageResource());
         
         return server;

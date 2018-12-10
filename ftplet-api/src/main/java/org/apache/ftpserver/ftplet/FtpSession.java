@@ -200,6 +200,6 @@ public interface FtpSession {
      * identifier. 
      * @return The unique ID for this session
      */
-    public UUID getSessionId();
+    UUID getSessionId();
 
 }

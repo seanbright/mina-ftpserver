@@ -197,40 +197,51 @@ public final class OS {
             boolean isVersion = true;
 
             if (family != null) {
-                if (family.equals(FAMILY_WINDOWS)) {
-                    isFamily = OS_NAME.indexOf(FAMILY_WINDOWS) > -1;
-                } else if (family.equals(FAMILY_OS_2)) {
-                    isFamily = OS_NAME.indexOf(FAMILY_OS_2) > -1;
-                } else if (family.equals(FAMILY_NETWARE)) {
-                    isFamily = OS_NAME.indexOf(FAMILY_NETWARE) > -1;
-                } else if (family.equals(FAMILY_DOS)) {
-                    isFamily = PATH_SEP.equals(";")
-                            && !isFamily(FAMILY_NETWARE);
-                } else if (family.equals(FAMILY_MAC)) {
-                    isFamily = OS_NAME.indexOf(FAMILY_MAC) > -1;
-                } else if (family.equals(FAMILY_TANDEM)) {
-                    isFamily = OS_NAME.indexOf("nonstop_kernel") > -1;
-                } else if (family.equals(FAMILY_UNIX)) {
-                    isFamily = PATH_SEP.equals(":")
-                            && !isFamily(FAMILY_OPENVMS)
-                            && (!isFamily(FAMILY_MAC) || OS_NAME.endsWith("x"));
-                } else if (family.equals(FAMILY_WIN9X)) {
-                    isFamily = isFamily(FAMILY_WINDOWS)
-                            && (OS_NAME.indexOf("95") >= 0
-                                    || OS_NAME.indexOf("98") >= 0
-                                    || OS_NAME.indexOf("me") >= 0 || OS_NAME
-                                    .indexOf("ce") >= 0);
-                } else if (family.equals(FAMILY_Z_OS)) {
-                    isFamily = OS_NAME.indexOf(FAMILY_Z_OS) > -1
-                            || OS_NAME.indexOf("os/390") > -1;
-                } else if (family.equals(FAMILY_OS_400)) {
-                    isFamily = OS_NAME.indexOf(FAMILY_OS_400) > -1;
-                } else if (family.equals(FAMILY_OPENVMS)) {
-                    isFamily = OS_NAME.indexOf(FAMILY_OPENVMS) > -1;
-                } else {
-                    throw new IllegalArgumentException(
-                            "Don\'t know how to detect os family \"" + family
-                                    + "\"");
+                switch (family) {
+                    case FAMILY_WINDOWS:
+                        isFamily = OS_NAME.contains(FAMILY_WINDOWS);
+                        break;
+                    case FAMILY_OS_2:
+                        isFamily = OS_NAME.contains(FAMILY_OS_2);
+                        break;
+                    case FAMILY_NETWARE:
+                        isFamily = OS_NAME.contains(FAMILY_NETWARE);
+                        break;
+                    case FAMILY_DOS:
+                        isFamily = PATH_SEP.equals(";")
+                                && !isFamily(FAMILY_NETWARE);
+                        break;
+                    case FAMILY_MAC:
+                        isFamily = OS_NAME.contains(FAMILY_MAC);
+                        break;
+                    case FAMILY_TANDEM:
+                        isFamily = OS_NAME.contains("nonstop_kernel");
+                        break;
+                    case FAMILY_UNIX:
+                        isFamily = PATH_SEP.equals(":")
+                                && !isFamily(FAMILY_OPENVMS)
+                                && (!isFamily(FAMILY_MAC) || OS_NAME.endsWith("x"));
+                        break;
+                    case FAMILY_WIN9X:
+                        isFamily = isFamily(FAMILY_WINDOWS)
+                                && (OS_NAME.contains("95")
+                                || OS_NAME.contains("98")
+                                || OS_NAME.contains("me") || OS_NAME.contains("ce"));
+                        break;
+                    case FAMILY_Z_OS:
+                        isFamily = OS_NAME.contains(FAMILY_Z_OS)
+                                || OS_NAME.contains("os/390");
+                        break;
+                    case FAMILY_OS_400:
+                        isFamily = OS_NAME.contains(FAMILY_OS_400);
+                        break;
+                    case FAMILY_OPENVMS:
+                        isFamily = OS_NAME.contains(FAMILY_OPENVMS);
+                        break;
+                    default:
+                        throw new IllegalArgumentException(
+                                "Don\'t know how to detect os family \"" + family
+                                        + "\"");
                 }
             }
             if (name != null) {

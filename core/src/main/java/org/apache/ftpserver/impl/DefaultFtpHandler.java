@@ -203,7 +203,6 @@ public class DefaultFtpHandler implements FtpHandler {
             if (ftpletRet == FtpletResult.DISCONNECT) {
                 LOG.debug("Ftplet returned DISCONNECT, session will be closed");
                 session.close(false).awaitUninterruptibly(10000);
-                return;
             } else if (ftpletRet != FtpletResult.SKIP) {
 
                 if (command != null) {
@@ -229,7 +228,6 @@ public class DefaultFtpHandler implements FtpHandler {
                     LOG.debug("Ftplet returned DISCONNECT, session will be closed");
 
                     session.close(false).awaitUninterruptibly(10000);
-                    return;
                 }
             }
 
@@ -244,7 +242,7 @@ public class DefaultFtpHandler implements FtpHandler {
             }
 
             if (ex instanceof java.io.IOException) {
-                throw (IOException) ex;
+                throw ex;
             } else {
                 LOG.warn("RequestHandler.service()", ex);
             }

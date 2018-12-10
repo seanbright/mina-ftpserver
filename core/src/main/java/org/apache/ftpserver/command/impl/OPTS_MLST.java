@@ -59,7 +59,7 @@ public class OPTS_MLST extends AbstractCommand {
         String argument = request.getArgument();
 
         String listTypes;
-        String types[];
+        String[] types;
         int spIndex = argument.indexOf(' ');
         if (spIndex == -1) {
             types = new String[0];
@@ -87,19 +87,19 @@ public class OPTS_MLST extends AbstractCommand {
         }
     }
 
-    private String[] validateSelectedTypes(final String types[]) {
+    private String[] validateSelectedTypes(final String[] types) {
 
         // ignore null types
         if (types == null) {
             return new String[0];
         }
 
-        List<String> selectedTypes = new ArrayList<String>();
+        List<String> selectedTypes = new ArrayList<>();
         // check all the types
-        for (int i = 0; i < types.length; ++i) {
-            for (int j = 0; j < AVAILABLE_TYPES.length; ++j) {
-                if (AVAILABLE_TYPES[j].equalsIgnoreCase(types[i])) {
-                    selectedTypes.add(AVAILABLE_TYPES[j]);
+        for (String type : types) {
+            for (String availableType : AVAILABLE_TYPES) {
+                if (availableType.equalsIgnoreCase(type)) {
+                    selectedTypes.add(availableType);
                     break;
                 }
             }

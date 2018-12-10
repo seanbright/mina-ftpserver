@@ -53,11 +53,10 @@ public class MLSTFileFormater implements FileFormater {
     public String format(FtpFile file) {
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < selectedTypes.length; ++i) {
-            String type = selectedTypes[i];
+        for (String type : selectedTypes) {
             if (type.equalsIgnoreCase("size")) {
                 sb.append("Size=");
-                sb.append(String.valueOf(file.getSize()));
+                sb.append(file.getSize());
                 sb.append(';');
             } else if (type.equalsIgnoreCase("modify")) {
                 String timeStr = DateUtils.getFtpDate(file.getLastModified());

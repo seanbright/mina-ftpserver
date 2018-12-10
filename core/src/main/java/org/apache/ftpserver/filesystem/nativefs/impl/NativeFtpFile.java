@@ -27,7 +27,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -319,11 +318,7 @@ public class NativeFtpFile implements FtpFile {
         }
 
         // make sure the files are returned in order
-        Arrays.sort(files, new Comparator<File>() {
-            public int compare(File f1, File f2) {
-                return f1.getName().compareTo(f2.getName());
-            }
-        });
+        Arrays.sort(files, Comparator.comparing(File::getName));
 
         // get the virtual name of the base directory
         String virtualFileStr = getAbsolutePath();
@@ -339,7 +334,7 @@ public class NativeFtpFile implements FtpFile {
             virtualFiles[i] = new NativeFtpFile(fileName, fileObj, user);
         }
 
-        return Collections.unmodifiableList(Arrays.asList(virtualFiles));
+        return List.of(virtualFiles);
     }
 
     /**

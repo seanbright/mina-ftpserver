@@ -127,7 +127,7 @@ public class TestUtil {
         Enumeration<NetworkInterface> nifs = NetworkInterface
                 .getNetworkInterfaces();
 
-        List<String> hostIps = new ArrayList<String>();
+        List<String> hostIps = new ArrayList<>();
         while (nifs.hasMoreElements()) {
             NetworkInterface nif = nifs.nextElement();
             Enumeration<InetAddress> ips = nif.getInetAddresses();
@@ -202,8 +202,7 @@ public class TestUtil {
 
     public static void assertInArrays(Object expected, Object[] actual) {
         boolean found = false;
-        for (int i = 0; i < actual.length; i++) {
-            Object object = actual[i];
+        for (Object object : actual) {
             if (object.equals(expected)) {
                 found = true;
                 break;

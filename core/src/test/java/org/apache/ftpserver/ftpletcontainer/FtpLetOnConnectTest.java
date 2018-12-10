@@ -69,7 +69,7 @@ public class FtpLetOnConnectTest extends ClientTestTemplate {
     protected FtpServerFactory createServer() throws Exception {
         FtpServerFactory server = super.createServer();
 
-        Map<String, Ftplet> ftplets = new LinkedHashMap<String, Ftplet>();
+        Map<String, Ftplet> ftplets = new LinkedHashMap<>();
         ftplets.put("f1", new MockFtplet());
         server.setFtplets(ftplets);
         
@@ -88,9 +88,7 @@ public class FtpLetOnConnectTest extends ClientTestTemplate {
         try {
             connectClient();
             fail("Must throw FTPConnectionClosedException");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
     }
@@ -107,9 +105,7 @@ public class FtpLetOnConnectTest extends ClientTestTemplate {
         try {
             connectClient();
             fail("Must throw FTPConnectionClosedException");
-        } catch (FTPConnectionClosedException e) {
-            // OK
-        } catch (SocketException e) {
+        } catch (FTPConnectionClosedException | SocketException e) {
             // OK
         }
     }

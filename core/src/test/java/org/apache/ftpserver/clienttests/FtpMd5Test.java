@@ -20,6 +20,7 @@
 package org.apache.ftpserver.clienttests;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.security.Security;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,8 +67,8 @@ public class FtpMd5Test extends ClientTestTemplate {
     protected void setUp() throws Exception {
         super.setUp();
 
-        testData = "TESTDATA".getBytes("UTF-8");
-        testData2 = "Hello world".getBytes("UTF-8");
+        testData = "TESTDATA".getBytes(StandardCharsets.UTF_8);
+        testData2 = "Hello world".getBytes(StandardCharsets.UTF_8);
         testDataHash = DigestUtils.md5Hex(testData).toUpperCase();
         testData2Hash = DigestUtils.md5Hex(testData2).toUpperCase();
 
@@ -193,14 +194,14 @@ public class FtpMd5Test extends ClientTestTemplate {
 
         String[] tokens = s.split(",");
 
-        Map<String, String> result = new HashMap<String, String>();
-        for (int i = 0; i < tokens.length; i++) {
-            String token = tokens[i].trim();
+        Map<String, String> result = new HashMap<>();
+        for (String token1 : tokens) {
+            String token = token1.trim();
             int hashStart = token.lastIndexOf(' ');
 
             String fileName = token.substring(0, hashStart).trim();
-            if(fileName.startsWith("\"") && fileName.endsWith("\"")) {
-            	fileName = fileName.substring(1, fileName.length() - 1);
+            if (fileName.startsWith("\"") && fileName.endsWith("\"")) {
+                fileName = fileName.substring(1, fileName.length() - 1);
             }
             String hash = token.substring(hashStart).trim();
 

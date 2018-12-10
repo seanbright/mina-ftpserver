@@ -53,6 +53,6 @@ public class PasvAddressWithHostnameTest extends ClientTestTemplate {
         client.login(ADMIN_USERNAME, ADMIN_PASSWORD);
         client.pasv();
 
-        assertTrue(client.getReplyString().indexOf("(127,0,0,1,") > -1);
+        assertTrue(client.getReplyString().contains("(127,0,0,1,"));
     }
 }

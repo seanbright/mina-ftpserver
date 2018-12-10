@@ -68,6 +68,6 @@ public class PasvAddressWithOverridenHostnameGetter extends ClientTestTemplate {
         client.login(ADMIN_USERNAME, ADMIN_PASSWORD);
         client.pasv();
 
-        assertTrue(client.getReplyString().indexOf("(10,10,10,10,") > -1);
+        assertTrue(client.getReplyString().contains("(10,10,10,10,"));
     }
 }

@@ -27,6 +27,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterInputStream;
 
@@ -176,13 +177,13 @@ public class IODataConnection implements DataConnection {
         OutputStream out = getDataOutputStream();
         Writer writer = null;
         try {
-            writer = new OutputStreamWriter(out, "UTF-8");
+            writer = new OutputStreamWriter(out, StandardCharsets.UTF_8);
             writer.write(str);
 
             // update session
             if (session instanceof DefaultFtpSession) {
                 ((DefaultFtpSession) session).increaseWrittenDataBytes(str
-                        .getBytes("UTF-8").length);
+                        .getBytes(StandardCharsets.UTF_8).length);
             }
         } finally {
             if (writer != null) {
@@ -193,8 +194,8 @@ public class IODataConnection implements DataConnection {
 
     }
 
-    private final long transfer(FtpSession session, boolean isWrite,
-            final InputStream in, final OutputStream out, final int maxRate)
+    private long transfer(FtpSession session, boolean isWrite,
+                          final InputStream in, final OutputStream out, final int maxRate)
             throws IOException {
         long transferredSize = 0L;
 
@@ -293,11 +294,7 @@ public class IODataConnection implements DataConnection {
 
                 notifyObserver();
             }
-        } catch(IOException e) {
-            LOG.warn("Exception during data transfer, closing data connection socket", e);
-            factory.closeDataConnection();
-            throw e;
-        } catch(RuntimeException e) {
+        } catch(IOException | RuntimeException e) {
             LOG.warn("Exception during data transfer, closing data connection socket", e);
             factory.closeDataConnection();
             throw e;

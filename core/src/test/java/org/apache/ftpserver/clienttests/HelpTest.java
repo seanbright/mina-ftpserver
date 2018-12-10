@@ -48,23 +48,21 @@ public class HelpTest extends ClientTestTemplate {
 
     public void testHelp() throws Exception {
         assertEquals(214, client.help());
-        assertTrue(client.getReplyString().indexOf(
-                "The following commands are implemented") > -1);
+        assertTrue(client.getReplyString().contains("The following commands are implemented"));
     }
 
     public void testHelpForCWD() throws Exception {
         assertEquals(214, client.help("CWD"));
-        assertTrue(client.getReplyString().indexOf("Syntax: CWD") > -1);
+        assertTrue(client.getReplyString().contains("Syntax: CWD"));
     }
 
     public void testHelpForCWDLowerCase() throws Exception {
         assertEquals(214, client.help("cwd"));
-        assertTrue(client.getReplyString().indexOf("Syntax: CWD") > -1);
+        assertTrue(client.getReplyString().contains("Syntax: CWD"));
     }
 
     public void testHelpForUnknownCommand() throws Exception {
         assertEquals(214, client.help("foo"));
-        assertTrue(client.getReplyString().indexOf(
-                "The following commands are implemented") > -1);
+        assertTrue(client.getReplyString().contains("The following commands are implemented"));
     }
 }

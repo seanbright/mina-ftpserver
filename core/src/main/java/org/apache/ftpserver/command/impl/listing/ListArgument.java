@@ -77,8 +77,8 @@ public class ListArgument {
      * @return true if the option is set
      */
     public boolean hasOption(char option) {
-        for (int i = 0; i < options.length; i++) {
-            if (option == options[i]) {
+        for (char option1 : options) {
+            if (option == option1) {
                 return true;
             }
         }

@@ -145,7 +145,6 @@ public class MFMT extends AbstractCommand {
                             context,
                             FtpReply.REPLY_213_FILE_STATUS,
                             "MFMT", "ModifyTime=" + timestamp + "; " + fileName));
-            return;
 
         } catch (ParseException e) {
             session
@@ -156,7 +155,6 @@ public class MFMT extends AbstractCommand {
                             context,
                             FtpReply.REPLY_501_SYNTAX_ERROR_IN_PARAMETERS_OR_ARGUMENTS,
                             "MFMT.invalid", null));
-            return;
         }
         
 

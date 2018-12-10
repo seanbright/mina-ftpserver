@@ -150,7 +150,7 @@ public class FtpReplyTranslator {
 		}
 
 		StringBuilder sb = new StringBuilder(128);
-		sb.append(str.substring(startIndex, openIndex));
+		sb.append(str, startIndex, openIndex);
 		while (true) {
 			String varName = str.substring(openIndex + 1, closeIndex);
 			sb.append(getVariableValue(session, request, context, code,
@@ -168,7 +168,7 @@ public class FtpReplyTranslator {
 				sb.append(str.substring(startIndex));
 				break;
 			}
-			sb.append(str.substring(startIndex, openIndex));
+			sb.append(str, startIndex, openIndex);
 		}
 		return sb.toString();
 	}
@@ -222,52 +222,53 @@ public class FtpReplyTranslator {
 		String varVal = null;
 
 		// client ip
-		if (varName.equals(CLIENT_IP)) {
-			if (session.getRemoteAddress() instanceof InetSocketAddress) {
-				InetSocketAddress remoteSocketAddress = (InetSocketAddress) session.getRemoteAddress();
-				varVal = remoteSocketAddress.getAddress().getHostAddress();
-			}
-
-		}
-
-		// client connection time
-		else if (varName.equals(CLIENT_CON_TIME)) {
-			varVal = DateUtils.getISO8601Date(session.getCreationTime());
-		}
-
-		// client login name
-		else if (varName.equals(CLIENT_LOGIN_NAME)) {
-			if (session.getUser() != null) {
-				varVal = session.getUser().getName();
-			}
-		}
-
-		// client login time
-		else if (varName.equals(CLIENT_LOGIN_TIME)) {
-			varVal = DateUtils.getISO8601Date(session.getLoginTime().getTime());
-		}
-
-		// client last access time
-		else if (varName.equals(CLIENT_ACCESS_TIME)) {
-			varVal = DateUtils.getISO8601Date(session.getLastAccessTime().getTime());
-		}
-
-		// client home
-		else if (varName.equals(CLIENT_HOME)) {
-			varVal = session.getUser().getHomeDirectory();
-		}
-
-		// client directory
-		else if (varName.equals(CLIENT_DIR)) {
-			FileSystemView fsView = session.getFileSystemView();
-			if (fsView != null) {
-				try {
-					varVal = fsView.getWorkingDirectory().getAbsolutePath();
+		switch (varName) {
+			case CLIENT_IP:
+				if (session.getRemoteAddress() instanceof InetSocketAddress) {
+					InetSocketAddress remoteSocketAddress = (InetSocketAddress) session.getRemoteAddress();
+					varVal = remoteSocketAddress.getAddress().getHostAddress();
 				}
-				catch (Exception ex) {
-					varVal = "";
+
+				break;
+
+			// client connection time
+			case CLIENT_CON_TIME:
+				varVal = DateUtils.getISO8601Date(session.getCreationTime());
+				break;
+
+			// client login name
+			case CLIENT_LOGIN_NAME:
+				if (session.getUser() != null) {
+					varVal = session.getUser().getName();
 				}
-			}
+				break;
+
+			// client login time
+			case CLIENT_LOGIN_TIME:
+				varVal = DateUtils.getISO8601Date(session.getLoginTime().getTime());
+				break;
+
+			// client last access time
+			case CLIENT_ACCESS_TIME:
+				varVal = DateUtils.getISO8601Date(session.getLastAccessTime().getTime());
+				break;
+
+			// client home
+			case CLIENT_HOME:
+				varVal = session.getUser().getHomeDirectory();
+				break;
+
+			// client directory
+			case CLIENT_DIR:
+				FileSystemView fsView = session.getFileSystemView();
+				if (fsView != null) {
+					try {
+						varVal = fsView.getWorkingDirectory().getAbsolutePath();
+					} catch (Exception ex) {
+						varVal = "";
+					}
+				}
+				break;
 		}
 		return varVal;
 	}
@@ -305,18 +306,20 @@ public class FtpReplyTranslator {
 		}
 
 		// request line
-		if (varName.equals(REQUEST_LINE)) {
-			varVal = request.getRequestLine();
-		}
+		switch (varName) {
+			case REQUEST_LINE:
+				varVal = request.getRequestLine();
+				break;
 
-		// request command
-		else if (varName.equals(REQUEST_CMD)) {
-			varVal = request.getCommand();
-		}
+			// request command
+			case REQUEST_CMD:
+				varVal = request.getCommand();
+				break;
 
-		// request argument
-		else if (varName.equals(REQUEST_ARG)) {
-			varVal = request.getArgument();
+			// request argument
+			case REQUEST_ARG:
+				varVal = request.getArgument();
+				break;
 		}
 
 		return varVal;
@@ -404,28 +407,30 @@ public class FtpReplyTranslator {
 		FtpStatistics stat = context.getFtpStatistics();
 
 		// total number of file upload
-		if (varName.equals(STAT_FILE_UPLOAD_COUNT)) {
-			varVal = String.valueOf(stat.getTotalUploadNumber());
-		}
+		switch (varName) {
+			case STAT_FILE_UPLOAD_COUNT:
+				varVal = String.valueOf(stat.getTotalUploadNumber());
+				break;
 
-		// total bytes uploaded
-		else if (varName.equals(STAT_FILE_UPLOAD_BYTES)) {
-			varVal = String.valueOf(stat.getTotalUploadSize());
-		}
+			// total bytes uploaded
+			case STAT_FILE_UPLOAD_BYTES:
+				varVal = String.valueOf(stat.getTotalUploadSize());
+				break;
 
-		// total number of file download
-		else if (varName.equals(STAT_FILE_DOWNLOAD_COUNT)) {
-			varVal = String.valueOf(stat.getTotalDownloadNumber());
-		}
+			// total number of file download
+			case STAT_FILE_DOWNLOAD_COUNT:
+				varVal = String.valueOf(stat.getTotalDownloadNumber());
+				break;
 
-		// total bytes downloaded
-		else if (varName.equals(STAT_FILE_DOWNLOAD_BYTES)) {
-			varVal = String.valueOf(stat.getTotalDownloadSize());
-		}
+			// total bytes downloaded
+			case STAT_FILE_DOWNLOAD_BYTES:
+				varVal = String.valueOf(stat.getTotalDownloadSize());
+				break;
 
-		// total number of files deleted
-		else if (varName.equals(STAT_FILE_DELETE_COUNT)) {
-			varVal = String.valueOf(stat.getTotalDeleteNumber());
+			// total number of files deleted
+			case STAT_FILE_DELETE_COUNT:
+				varVal = String.valueOf(stat.getTotalDeleteNumber());
+				break;
 		}
 
 		return varVal;
@@ -440,23 +445,25 @@ public class FtpReplyTranslator {
 		FtpStatistics stat = context.getFtpStatistics();
 
 		// total login number
-		if (varName.equals(STAT_LOGIN_TOTAL)) {
-			varVal = String.valueOf(stat.getTotalLoginNumber());
-		}
+		switch (varName) {
+			case STAT_LOGIN_TOTAL:
+				varVal = String.valueOf(stat.getTotalLoginNumber());
+				break;
 
-		// current login number
-		else if (varName.equals(STAT_LOGIN_CURR)) {
-			varVal = String.valueOf(stat.getCurrentLoginNumber());
-		}
+			// current login number
+			case STAT_LOGIN_CURR:
+				varVal = String.valueOf(stat.getCurrentLoginNumber());
+				break;
 
-		// total anonymous login number
-		else if (varName.equals(STAT_LOGIN_ANON_TOTAL)) {
-			varVal = String.valueOf(stat.getTotalAnonymousLoginNumber());
-		}
+			// total anonymous login number
+			case STAT_LOGIN_ANON_TOTAL:
+				varVal = String.valueOf(stat.getTotalAnonymousLoginNumber());
+				break;
 
-		// current anonymous login number
-		else if (varName.equals(STAT_LOGIN_ANON_CURR)) {
-			varVal = String.valueOf(stat.getCurrentAnonymousLoginNumber());
+			// current anonymous login number
+			case STAT_LOGIN_ANON_CURR:
+				varVal = String.valueOf(stat.getCurrentAnonymousLoginNumber());
+				break;
 		}
 
 		return varVal;
